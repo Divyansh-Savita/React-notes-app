@@ -1,38 +1,28 @@
-
-import { useState } from 'react'
+ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [text,setText]=useState("")
-  const [items,setItems]=useState([])
+  const [task,setTask]=useState([])
+  const [newTask,setNewTask]=useState("")
 
-  function handleAdd(){
-    if(text.trim()==="")return ;
-    let newItem={
-      id:Date.now(),
-      text:text,
-    }
-    setItems([...items,newItem]);
-    setText("")
-  }
-  
-  function handleDelete(idToRemove){
-    setItems(items.filter(item=>item.id !== idToRemove))
+  function addTask(){
+    if (newTask.trim() === "") return; 
+    setTask(prev=>[...prev,newTask])
+    setNewTask("")
   }
   return (
     <>
-    <h1>Trello</h1>
-    <input type="text" value={text} onChange={(e)=>setText(e.target.value)} />
-    <button onClick={handleAdd}>Click me</button>
-    <ul>
-      {items.map((item)=>(
-        <li key={item.id}>{item.text}{"    "}
-        <button onClick={()=>handleDelete(item.id)}>Delete</button>
-        </li>
-      ))}
-    </ul>
+      <h1>Trello</h1>
+      <input type="text" value={newTask} onChange={(e)=>setNewTask(e.target.value)} />
+      <button onClick={addTask}>Add Task</button>
+
+      <ul>
+        {task.map((val,index)=>
+        <li key={index}>{val}</li>
+        )}
+      </ul>
     </>
   )
 }
 
-export default App
+export default App;
