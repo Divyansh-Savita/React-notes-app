@@ -10,6 +10,9 @@ function App() {
     setTask(prev=>[...prev,newTask])
     setNewTask("")
   }
+  function deleteTask(index){
+    setTask(task.filter((_,i)=> i!=index));
+  }
   return (
     <>
       <h1>Trello</h1>
@@ -18,8 +21,11 @@ function App() {
 
       <ul>
         {task.map((val,index)=>
-        <li key={index}>{val}</li>
+        <li key={index}>{val}
+        <button onClick={()=>deleteTask(index)}>Delete</button>
+        </li>
         )}
+        
       </ul>
     </>
   )
